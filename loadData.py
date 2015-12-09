@@ -17,12 +17,10 @@ for item in ingredients:
 	for ingr in item:
 		ingredientList.append(ingr.split(" ")[-1])
 	allIngredients.append(ingredientList)
-ingredients = allIngredients
+# ingredients = allIngredients
 unique_ingredients = set(item for sublist in ingredients for item in sublist)
 unique_cuisines = set(classes)
 
-# print len(data)
-# print (classes)
 examples = len(unique_cuisines)
 print ( len (ingredients) )
 print ( len ( unique_ingredients ) )
@@ -37,3 +35,5 @@ for d,dish in enumerate(ingredients):
 
 with open("data_matrix.out", "w") as file:
 	file.write(pickle.dumps(big_data_matrix))
+with open("ingredients.out", "w") as file:
+	file.write(pickle.dumps(ingredients))
