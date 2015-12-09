@@ -66,4 +66,3 @@ with open(networkFile) as net:
 
 for i in unique_cuisines:
 	print i, ": ", confMatrix[i]
-
