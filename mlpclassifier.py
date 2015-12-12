@@ -12,7 +12,7 @@ from datetime import date
 # maximum number of iterations allowed
 MAX_ITER=200
 # tuple of sizes of the hidden layers
-SIZES=(20)
+SIZES=(50)
 today = date.today()
 dataFile = ""
 matrixFile = ""
