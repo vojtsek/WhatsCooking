@@ -9,8 +9,10 @@ import sys
 from sklearn.neural_network import MLPClassifier
 from datetime import date
 
-MAX_ITER=100
-SIZES=(100)
+# maximum number of iterations allowed
+MAX_ITER=200
+# tuple of sizes of the hidden layers
+SIZES=(20)
 today = date.today()
 dataFile = ""
 matrixFile = ""
@@ -42,16 +44,10 @@ unique_ingredients = set(item for sublist in ingredients for item in sublist)
 unique_cuisines = set(classes)
 examples = len(unique_cuisines)
 
+clf2 = MLPClassifier (algorithm = 'adam', alpha=0.1, learning_rate="adaptive", verbose=True, hidden_layer_sizes=SIZES, max_iter=MAX_ITER, random_state=1, activation='tanh' );
+f = clf2.fit(big_data_matrix, classes)
 
-train_set = big_data_matrix[0:35000,:]
-test_set = big_data_matrix[35000:39773,:]
-train_classes = classes[0:35000]
-test_classes = classes[35000:39773]
-            
-clf2 = MLPClassifier (algorithm = 'sgd', alpha=1,verbose=True, hidden_layer_sizes=SIZES, max_iter=MAX_ITER, random_state=1, activation='logistic' );
-f = clf2.fit(train_set, train_classes)
-
-result = [(ref == res, ref, res) for (ref, res) in zip(test_classes, clf2.predict(test_set))]
+result = [(ref == res, ref, res) for (ref, res) in zip(classes, clf2.predict(big_data_matrix))]
 accuracy_learn = sum (r[0] for r in result) / float ( len(result) )
 storedNetwork = pickle.dumps(clf2)
 

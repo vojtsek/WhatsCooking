@@ -55,12 +55,13 @@ print ( len ( unique_cuisines ) )
 
 with open(networkFile) as net:
 	clf = pickle.loads("".join(line for line in net.readlines()))
+	print test_set.shape
 	#result = [(ref == res, ref, res) for (ref, res) in zip(test_classes, clf.predict(test_set))] 
-	for cls, rec in zip(clf.predict(test_set), test_set):
-		print cls, " - ", rec
+	for cls, rec in zip(clf.predict(test_set), data):
+		print rec["id"], ",", cls
 	#accuracy_learn = sum (r[0] for r in result) / float ( len(result) )
 	#print accuracy_learn
-	#confMatrix = dict()
+	confMatrix = dict()
 	for i in unique_cuisines:
 		confMatrix[i] = dict()
 		for j in unique_cuisines:
@@ -68,5 +69,5 @@ with open(networkFile) as net:
 	#for _, desired, actual in result:
 	#	confMatrix[desired][actual] += 1
 
-for i in unique_cuisines:
-	print i, ": ", confMatrix[i]
+#for i in unique_cuisines:
+	#print i, ": ", confMatrix[i]
