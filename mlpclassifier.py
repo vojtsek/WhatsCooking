@@ -12,13 +12,14 @@ from datetime import date
 # maximum number of iterations allowed
 MAX_ITER=200
 # tuple of sizes of the hidden layers
-SIZES=(50)
+SIZES=(20)
 today = date.today()
 dataFile = ""
 matrixFile = ""
 ingredientsFile = ""
+networkFile = ""
 try:
-      opts, args = getopt.getopt(sys.argv[1:],"d:m:i:",[])
+      opts, args = getopt.getopt(sys.argv[1:],"d:m:i:n:",[])
 except getopt.GetoptError:
       print 'USAGE: mlpclassifier.py -d <dataFile.json> -i <ingredientsFile> -m <matrixFile>'
       sys.exit(2)
@@ -29,6 +30,8 @@ for opt, arg in opts:
         	matrixFile = arg
 	elif opt == "-i":
         	ingredientsFile = arg
+	elif opt == "-n":
+        	networkFile = arg
 
 with open(dataFile) as json_data:
     data = js.load(json_data)
@@ -44,7 +47,7 @@ unique_ingredients = set(item for sublist in ingredients for item in sublist)
 unique_cuisines = set(classes)
 examples = len(unique_cuisines)
 
-clf2 = MLPClassifier (algorithm = 'adam', alpha=0.1, learning_rate="adaptive", verbose=True, hidden_layer_sizes=SIZES, max_iter=MAX_ITER, random_state=1, activation='tanh' );
+clf2 = MLPClassifier (algorithm = 'adam', alpha=0.005, learning_rate="adaptive", verbose=True, hidden_layer_sizes=SIZES, max_iter=MAX_ITER, random_state=1, activation='tanh' );
 f = clf2.fit(big_data_matrix, classes)
 
 result = [(ref == res, ref, res) for (ref, res) in zip(classes, clf2.predict(big_data_matrix))]
@@ -52,7 +55,7 @@ accuracy_learn = sum (r[0] for r in result) / float ( len(result) )
 storedNetwork = pickle.dumps(clf2)
 
 output = "".join(["network_", str(today), "_maxIter_", str(MAX_ITER), "_sizes_", str(SIZES)])
-with open(output, "w") as file:
+with open(networkFile, "w") as file:
 	file.write(storedNetwork)
 
 

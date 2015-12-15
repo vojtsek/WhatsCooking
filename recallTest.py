@@ -44,9 +44,7 @@ unique_ingredients = set(item for sublist in ingredients for item in sublist)
 unique_cuisines = set(classes)
 examples = len(unique_cuisines)
 
-train_set = big_data_matrix[0:35000,:]
 test_set = big_data_matrix
-train_classes = classes[0:35000]
 test_classes = classes
  
 print ( len (ingredients) )
@@ -56,7 +54,6 @@ print ( len ( unique_cuisines ) )
 with open(networkFile) as net:
 	clf = pickle.loads("".join(line for line in net.readlines()))
 	print test_set.shape
-	#result = [(ref == res, ref, res) for (ref, res) in zip(test_classes, clf.predict(test_set))] 
 	for cls, rec in zip(clf.predict(test_set), data):
 		print rec["id"], ",", cls
 	#accuracy_learn = sum (r[0] for r in result) / float ( len(result) )
