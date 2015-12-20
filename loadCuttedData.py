@@ -7,6 +7,9 @@ from sklearn import decomposition
 import pdb
 
 def cutIngredients(unique_ingredients_test, unique_ingredients, ingredients_all, ingredients_test):
+	def inRange(number):
+		return (number > 5) and (number < 1000)
+
 	ingredientsOccurences = dict()
 	for i in unique_ingredients:
 		ingredientsOccurences[i] = 0
@@ -16,11 +19,12 @@ def cutIngredients(unique_ingredients_test, unique_ingredients, ingredients_all,
 	print ( len (ingredients_all) )
 	print ( len ( unique_ingredients ) )
 
+	# print sorted(ingredientsOccurences.values())
 	cutted = []
 	for item in ingredients_all:
 		il = []
 		for i in item:
-			if ingredientsOccurences[i] > 5:
+			if inRange(ingredientsOccurences[i]):
 				il.append(i)
 		cutted.append(il)
 	ingredients_all = cutted
@@ -34,7 +38,7 @@ def cutIngredients(unique_ingredients_test, unique_ingredients, ingredients_all,
 	for item in ingredients_test:
 		il = []
 		for i in item:
-			if ingredientsOccurences[i] > 5:
+			if inRange(ingredientsOccurences[i]):
 				il.append(i)
 		cutted.append(il)
 	ingredients_test = cutted
@@ -112,11 +116,11 @@ unique_ingredients = set(item for sublist in ingredients_all for item in sublist
 unique_ingredients_test = set(item for sublist in ingredients_test for item in sublist)
 
 
-#(ingredients_test, ingredients_all) =  cutIngredients(unique_ingredients_test, unique_ingredients, ingredients_all, ingredients_test)
-#unique_ingredients = set(item for sublist in ingredients_all for item in sublist)
-#unique_ingredients_test = set(item for sublist in ingredients_test for item in sublist)
+(ingredients_test, ingredients_all) =  cutIngredients(unique_ingredients_test, unique_ingredients, ingredients_all, ingredients_test)
+unique_ingredients = set(item for sublist in ingredients_all for item in sublist)
+unique_ingredients_test = set(item for sublist in ingredients_test for item in sublist)
 print ( len (ingredients_all) )
 print ( len ( unique_ingredients ) )
-#writeResults(unique_ingredients_test, unique_ingredients, ingredients_all, ingredients_test, "test_matrix_significant.out", "matrix_significant.out", "test_ingredients_significant.out", "ingredients_significant.out")
+writeResults(unique_ingredients_test, unique_ingredients, ingredients_all, ingredients_test, "test_matrix_significant.out", "matrix_significant.out", "test_ingredients_significant.out", "ingredients_significant.out")
 
-processPCA(unique_ingredients_test, unique_ingredients, ingredients_all, ingredients_test)
+#processPCA(unique_ingredients_test, unique_ingredients, ingredients_all, ingredients_test)
