@@ -30,7 +30,7 @@ for opt, arg in opts:
 with open(dataFile) as json_data:
     data = js.load(json_data)
 
-with open("train.json") as f:
+with open("dataset/train.json") as f:
 	data2=js.load(f)
 
 with open(matrixFile) as file:

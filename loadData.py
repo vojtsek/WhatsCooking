@@ -5,10 +5,10 @@ import scipy.sparse
 import numpy as np
 import pdb
 
-with open('./train.json') as json_data:
+with open('./dataset/train.json') as json_data:
     data = js.load(json_data)
 
-with open('./test.json') as json_data:
+with open('./dataset/test.json') as json_data:
     test_data = js.load(json_data)
 
 ingredients_test = [item['ingredients'] for item in test_data]
